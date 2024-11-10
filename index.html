@@ -3,22 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goku Task Checklist</title>
+    <title>Goku's Task Challenge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Unbounded:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Task Checklist with Goku Animation</h1>
+    <div class="container">
+        <header>
+            <h1>Goku's Task Challenge</h1>
+            <p>Complete tasks to witness Goku's power-up animation!</p>
+        </header>
 
-    <div id="tasks-container">
-        <!-- Task list will be generated dynamically here -->
+        <section id="tasks-container">
+            <!-- Tasks will be dynamically generated here -->
+        </section>
+
+        <div id="goku-animation-container">
+            <img src="goku.png" alt="Goku Animation" />
+        </div>
+
+        <div id="confetti-container"></div>
     </div>
-
-    <!-- Goku Animation Container -->
-    <div id="goku-animation-container" style="display: none; opacity: 0;">
-        <img src="goku.png" alt="Goku Animation" />
-    </div>
-
-    <div id="confetti-container"></div>
 
     <script src="script.js"></script>
 </body>
