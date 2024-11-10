@@ -1,7 +1,6 @@
-// Sample tasks data
-const tasks = Array.from({ length: 50 }, (_, i) => `Task ${i + 1}`);  // Example with 50 tasks
+const tasks = Array.from({ length: 327 }, (_, i) => `Task ${i + 1}`);  // Generates 327 tasks
 
-// Function to generate tasks dynamically
+// Function to generate tasks dynamically with timers
 function generateTasks() {
     const tasksContainer = document.getElementById("tasks-container");
 
@@ -9,61 +8,71 @@ function generateTasks() {
         const taskDiv = document.createElement("div");
         taskDiv.classList.add("task");
         taskDiv.innerHTML = `
-            <input type="checkbox" class="task-checkbox" id="task${index + 1}" onclick="markTaskComplete(${index + 1})">
+            <input type="checkbox" class="task-checkbox" id="task${index + 1}" onclick="toggleTask(${index + 1})">
             <label for="task${index + 1}">${task}</label>
+            <span class="timer" id="timer${index + 1}">05:00</span>
         `;
         tasksContainer.appendChild(taskDiv);
     });
 }
 
-// Function to mark a task as complete and trigger animations
-function markTaskComplete(index) {
-    const taskDiv = document.querySelector(`#task${index}`).parentElement;
-    taskDiv.style.transform = "scale(1.1)";
-    taskDiv.style.boxShadow = "0px 15px 40px rgba(0, 0, 0, 0.3)";
-    
-    setTimeout(() => {
-        taskDiv.style.transform = "scale(1)";
-        taskDiv.style.boxShadow = "0px 6px 20px rgba(0, 0, 0, 0.2)";
-    }, 300);
+// Timer function
+const timers = {};
 
-    if (taskDiv.querySelector('.task-checkbox').checked) {
-        triggerGokuAnimation();
-        showConfetti();
+function startTimer(taskId) {
+    const timerElement = document.getElementById(`timer${taskId}`);
+    let time = 300; // 5 minutes in seconds
+
+    // Clear any existing interval for this timer
+    clearInterval(timers[taskId]);
+
+    timers[taskId] = setInterval(() => {
+        let minutes = Math.floor(time / 60);
+        let seconds = time % 60;
+
+        // Display the countdown
+        timerElement.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+        // End countdown when time reaches 0
+        if (time <= 0) {
+            clearInterval(timers[taskId]);
+            timerElement.textContent = "Time's up!";
+        } else {
+            time--;
+        }
+    }, 1000);
+}
+
+function stopTimer(taskId) {
+    clearInterval(timers[taskId]); // Stop the timer
+    document.getElementById(`timer${taskId}`).textContent = "05:00"; // Reset to 5 minutes
+}
+
+function toggleTask(taskId) {
+    const checkbox = document.getElementById(`task${taskId}`);
+    const gokuAnimation = document.getElementById("goku-animation");
+
+    if (checkbox.checked) {
+        startTimer(taskId);
+        playGokuAnimation();
+    } else {
+        stopTimer(taskId); // Reset if unchecked
+        gokuAnimation.classList.add("goku-hidden");
     }
 }
 
-// Function to trigger Goku animation when a task is completed
-function triggerGokuAnimation() {
-    let gokuContainer = document.getElementById("goku-animation-container");
-    gokuContainer.style.display = "block";
-    gokuContainer.style.opacity = 1;
+function playGokuAnimation() {
+    const gokuAnimation = document.getElementById("goku-animation");
+    gokuAnimation.classList.remove("goku-hidden");
+    gokuAnimation.style.display = "block";
 
     setTimeout(() => {
-        gokuContainer.style.opacity = 0;
-        gokuContainer.style.display = "none";
-    }, 2000);
+        gokuAnimation.classList.add("goku-hidden");
+        gokuAnimation.style.display = "none";
+    }, 2000); // Goku animation lasts for 2 seconds
 }
 
-// Confetti animation
-function showConfetti() {
-    let confettiContainer = document.getElementById("confetti-container");
-    confettiContainer.style.display = "block";
-
-    for (let i = 0; i < 100; i++) {
-        let confetti = document.createElement('div');
-        confetti.classList.add('confetti');
-        confetti.style.left = Math.random() * 100 + '%';
-        confetti.style.animationDelay = Math.random() * 2 + 's';
-        confettiContainer.appendChild(confetti);
-    }
-
-    setTimeout(() => {
-        confettiContainer.style.display = "none";
-    }, 5000);
-}
-
-// Load tasks when the page loads
+// Load tasks and timers when the page loads
 window.onload = function() {
     generateTasks();
 };
