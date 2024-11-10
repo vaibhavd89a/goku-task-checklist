@@ -1,0 +1,79 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+#tasks-container {
+    margin-top: 20px;
+}
+
+.task {
+    background-color: #fff;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    display: inline-block;
+    width: 80%;
+}
+
+.task-checkbox {
+    margin-right: 10px;
+}
+
+#goku-animation-container img {
+    width: 100px;
+    height: 100px;
+    animation: gokuAnimation 1.5s ease-in-out;
+}
+
+@keyframes gokuAnimation {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+#confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    display: none;
+}
+
+.confetti {
+    position: absolute;
+    background-color: #ff0;
+    width: 10px;
+    height: 10px;
+    animation: confettiFall 4s infinite;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(0) rotate(0);
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
