@@ -7,24 +7,23 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background: linear-gradient(to right, #ff7e5f, #feb47b); /* Warm, vibrant gradient */
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
     color: #fff;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow: auto; /* Enable scrolling on the entire page */
 }
 
 /* Header Styling */
 header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: #fff;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
@@ -36,20 +35,23 @@ p {
     margin-top: 10px;
 }
 
-/* Task List Styling */
+/* Task List Container Styling */
 #tasks-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     max-width: 900px;
-    overflow-y: auto;
+    height: 70vh; /* Define a scrollable height */
+    overflow-y: auto; /* Enable vertical scroll within tasks container */
+    padding: 10px;
 }
 
+/* Task Styling */
 .task {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    margin: 12px 0;
+    margin: 10px 0;
     padding: 15px;
     width: 90%;
     max-width: 400px;
@@ -135,11 +137,7 @@ p {
 /* Responsive Styles */
 @media (max-width: 768px) {
     h1 {
-        font-size: 2.5rem;
-    }
-
-    p {
-        font-size: 1rem;
+        font-size: 2rem;
     }
 
     .task {
@@ -150,7 +148,7 @@ p {
 
 @media (max-width: 480px) {
     h1 {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     .task {
@@ -158,3 +156,4 @@ p {
         padding: 8px;
     }
 }
+
